@@ -113,8 +113,102 @@ class LinkedList():
                 else:
                     current_node = current_node.next_node
 
+    def insert_after_value(self, data_after, data_to_insert):
+        current_node = self.head_node
+        node_to_insert = Node(data_to_insert)
+        while True:
+            if current_node.data == data_after:
+                node_to_insert.next_node = current_node.next_node
+                current_node.next_node = node_to_insert
+                break
+            else:
+                current_node = current_node.next_node
+
+    def remove_by_value(self, data):
+        current_node = self.head_node
+        if current_node.data == data:
+            current_node = current_node.next_node
+        while True:
+            if current_node.next_node.data == data:
+                current_node.next_node = current_node.next_node.next_node
+                break
+            else:
+                current_node = current_node.next_node
+
+    def swap_nodes(self, val1, val2):
+
+        if val1 == val2:
+            print('values are same!')
+            return
+
+        node1 = self.head_node
+        node2 = self.head_node
+        node1_prev = None
+        node2_prev = None
+
+        while True:
+            if node1.data == val1:
+                break
+            else:
+                node1_prev = node1
+                node1 = node1.next_node
+                if node1 is None:
+                    print(color_red + 'val1 is not in the list!, execution is about to stop.' + color_white)
+                    return
+        while True:
+            if node2.data == val2:
+                break
+            else:
+                node2_prev = node2
+                node2 = node2.next_node
+                if node2 is None:
+                    print(color_red + 'val2 is not in the list!, execution is about to stop' + color_white)
+                    return
 
 
+
+        if node1_prev is None:
+            self.head_node = node2
+        else:
+            node1_prev.next_node = node2
+
+        if node2_prev is None:
+            self.head_node = node1
+        else:
+            node2_prev.next_node = node1
+
+        temp = node1.next_node
+        node1.next_node = node2.next_node
+        node2.next_node = temp
+
+
+
+
+
+
+ll = LinkedList()
+ll.insert_at(0, 15)
+ll.insert_at(0, 20)
+ll.insert_at(1, 'hello')
+# print(ll.print_list())
+ll.insert_after_value(15, 'HI')
+# print(ll.print_list())
+
+ll.insert_beginning('inanc alp')
+
+ll.insert_after_value('HI', 27)
+
+print(ll.print_list())
+
+print('----------')
+
+ll.swap_nodes(20, 15)
+
+print(ll.print_list())
+
+ll.swap_nodes(12, 13)
+
+print(ll.print_list())
 
 
 
@@ -135,13 +229,14 @@ class LinkedList():
 #
 # ll.insert_end(10)
 # ll.insert_end(12)
-ll = LinkedList()
-print(ll.print_list())
+# ll = LinkedList()
+# ll.insert_at(0, 15)
+# ll.insert_at(0, 20)
+# ll.insert_at(1, 'hello')
+# print(ll.print_list())
 
-ll.insert_at(0, 15)
-ll.insert_at(0, 20)
-ll.insert_at(1, 'hello')
-print(ll.print_list())
+
+
 # print(ll.print_list())
 #
 # ll.insert_beginning(31)
