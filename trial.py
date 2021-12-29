@@ -74,11 +74,11 @@ class LinkedList():
             print(color_red + 'Value does not Exist!!' + color_white)
 
 
-    def remove_w_index(self, index):
+    def remove_index(self, index):
         current_node = self.head_node
         count = 0
         if index < 0 or index >= ll.get_length():
-            print(color_red + 'Unvalid Index Number!' + color_white)
+            print(color_red + 'Invalid Index Number!' + color_white)
         elif index == 0:
             self.head_node = self.head_node.next_node
         else:
@@ -86,6 +86,29 @@ class LinkedList():
                 count += 1
                 if index == count:
                     current_node.next_node = current_node.next_node.next_node
+                    break
+                else:
+                    current_node = current_node.next_node
+
+
+    def insert_at(self, index, data):
+        node = Node(data)
+        current_node = self.head_node
+        count = 0
+        if index < 0 or index > ll.get_length():
+            print(color_red + 'Invalid Index Number!' + color_white)
+        elif index == 0:
+            node.next_node = current_node
+            self.head_node = node
+        elif index == ll.get_length():
+            ll.insert_end(data)
+
+        else:
+            while True:
+                count += 1
+                if count == index:
+                    node.next_node = current_node.next_node
+                    current_node.next_node = node
                     break
                 else:
                     current_node = current_node.next_node
@@ -101,42 +124,51 @@ class LinkedList():
 
 
 
-a = Node(1)
-b = Node(2, a)
-c = Node(3, b)
-d = Node(4, c)
-ll = LinkedList(d)
 
-ll.insert_end(10)
-ll.insert_end(12)
 
+#
+# a = Node(1)
+# b = Node(2, a)
+# c = Node(3, b)
+# d = Node(4, c)
+# ll = LinkedList(d)
+#
+# ll.insert_end(10)
+# ll.insert_end(12)
+ll = LinkedList()
 print(ll.print_list())
 
-ll.insert_beginning(31)
-
+ll.insert_at(0, 15)
+ll.insert_at(0, 20)
+ll.insert_at(1, 'hello')
 print(ll.print_list())
-
-
-items = ['inanc', 'alp', 'gunalp']
-
-for item in items:
-    ll.insert_end(item)
-
-print(ll.print_list())
-
-print(ll.get_length())
-
-ll.insert_end('sahra simay gunalp')
-
-print(ll.print_list())
-
-print('lenght:', ll.get_length())
-
-ll.remove_w_index(-1)
-
-print(ll.print_list())
-
-print('lenght:', ll.get_length())
+# print(ll.print_list())
+#
+# ll.insert_beginning(31)
+#
+# print(ll.print_list())
+#
+#
+# items = ['inanc', 'alp', 'gunalp']
+#
+# for item in items:
+#     ll.insert_end(item)
+#
+# print(ll.print_list())
+#
+# print(ll.get_length())
+#
+# ll.insert_end('sahra simay gunalp')
+#
+# print(ll.print_list())
+#
+# print('lenght:', ll.get_length())
+#
+# ll.remove_w_index(-1)
+#
+# print(ll.print_list())
+#
+# print('lenght:', ll.get_length())
 
 # print('------------')
 #
