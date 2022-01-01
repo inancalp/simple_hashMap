@@ -1,73 +1,86 @@
-class Node:
+class Node():
     def __init__(self, value, next_node=None):
         self.value = value
         self.next_node = next_node
 
-    def set_next_node(self, next_node):
-        self.next_node = next_node
 
-    def get_next_node(self):
-        return self.next_node
-
-    def get_value(self):
-        return self.value
+class LinkedList():
+    def __init__(self, head_node=None):
+        self.head_node = head_node
 
 
-class Queue:
-    def __init__(self, max_size=None):
-        self.head = None
-        self.tail = None
-        self.max_size = max_size
-        self.size = 0
+class HashTable():
+    def __init__(self):
+        self.max = 10
+        self.array = [None for i in range(self.max)]
 
-    def enqueue(self, value):
-        if self.has_space():
-            item_to_add = Node(value)
-            print("Adding " + str(item_to_add.get_value()) + " to the queue!")
-            if self.is_empty():
-                self.head = item_to_add
-                self.tail = item_to_add
-            else:
-                self.tail.set_next_node(item_to_add)
-                self.tail = item_to_add
-            self.size += 1
+    def get_hash(self, key):
+        h = 0
+        for i in key:
+            h += ord(i)
+        return h % self.max
+
+    def add(self, key, value):
+        if not self.array[self.get_hash(key)]:
+            try:
+                h = self.get_hash(key)
+                while True:
+                    if self.array[h] is None:
+                        self.array[h] = value
+                        break
+                    else:
+                        h = h + 1
+            except IndexError:
+                h = 0
+                while True:
+                    if self.array[h] is None:
+                        self.array[h] = value
+                        break
+                    else:
+                        h = h + 1
         else:
-            print("Sorry, no more room!")
-
-    # Add your dequeue method below:
-    def dequeue(self):
-        if self.size != 0:
-            item_to_remove = self.head
-            print('Removing', str(item_to_remove.get_value()), 'from the queue!')
-            if self.size == 1:
-                self.head = None
-                self.tail = None
-            else:
-                self.head = self.head.get_next_node()
-            self.size -= 1
-            return item_to_remove.get_value()
-        else:
-            print('This queue is totally empty!')
-
-    def peek(self):
-        if self.is_empty():
-            print("Nothing to see here!")
-        else:
-            return self.head.get_value()
-
-    def get_size(self):
-        return self.size
-
-    def has_space(self):
-        if self.max_size == None:
-            return True
-        else:
-            return self.max_size > self.get_size()
-
-    def is_empty(self):
-        return self.size == 0
+            print('''
+----------------------
+KEY is already taken!!
+----------------------
+''')
 
 
-q = Queue()
-q.enqueue("some guy with a mustache")
-q.dequeue()
+
+    def get_value(self, key):
+        h = self.get_hash(key)
+        return self.array[h]
+
+
+print(ord('m'))
+
+ht = HashTable()
+print('hash num "m":', ht.get_hash('m'))
+ht.add('m', 'HELLO')
+ht.add('m', 'Hi')
+print(ht.array)
+print(ht.get_value('m'))
+print(ht.get_value('m'))
+# l = [1, 2, 3, 4]
+#
+# print(l[4])
+
+
+# try:
+#     h = self.get_hash(key)
+#     while self.array[h]:
+#         h = h + 1
+#         if self.array[h] is None:
+#             self.array[h] = value
+#             break
+#         else:
+#             continue
+# except IndexError:
+#     h = 0
+#     while self.array[h]:
+#         h = h + 1
+#         if self.array[h] is None:
+#             self.array[h] = value
+#             break
+#         else:
+#             continue
